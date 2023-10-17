@@ -2,7 +2,29 @@
 
 ## Usage
 
-TODO
+```nix
+{
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    dagger.url = "github:sagikazarmark/dagger-flake";
+    dagger.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = { self, nixpkgs, flake-utils, dagger, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        devShell = pkgs.mkShell {
+          buildInputs = [ dagger.dagger ];
+        };
+      });
+}
+```
+
+TODO: add overlay example
+TODO: add flake parts example
 
 ## Why?
 
