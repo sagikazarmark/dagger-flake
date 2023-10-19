@@ -1,8 +1,11 @@
 { lib, stdenv, fetchurl, installShellFiles, testers, dagger }:
 
+let
+  current = import ./current.nix;
+in
 stdenv.mkDerivation rec {
   pname = "dagger";
-  version = "0.8.8";
+  version = current.version;
 
   src =
     let
@@ -16,7 +19,7 @@ stdenv.mkDerivation rec {
         aarch64-linux = "linux_arm64";
         aarch64-darwin = "darwin_arm64";
       };
-      hash = selectSystem (import ./hashes.nix);
+      hash = selectSystem current.hashes;
     in
     fetchurl {
       inherit hash;
