@@ -1,3 +1,6 @@
+> [!WARNING]
+> Deprecated in favor of the official [Dagger flake](https://github.com/dagger/nix).
+
 # Nix flake for Dagger
 
 ## Usage
